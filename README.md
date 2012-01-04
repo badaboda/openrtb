@@ -2,7 +2,7 @@ This repository contains OCaml code to validate requests and responses
 as specified by [OpenRTB](http://openrtb.info), in [Version 2.0](http://openrtb.googlecode.com/files/RTB%20Project%20v2.0%20for%20Public%20Comment.pdf)
 of the specification.  The specification is formalized using
 [ATD](https://github.com/mjambon/atd), in file
-[openrtb.atd](https://github.com/EigenDog/openrtb/blob/master/openrtb.atd).
+[openrtb.atd](https://github.com/EigenDog/openrtb/blob/master/openRTB.atd).
 The tool [atdgen](https://github.com/MyLifeLabs/atdgen) generates
 OCaml serializer and deserializers from this specification.  To
 validate a request contained in file `request-file.js` :
