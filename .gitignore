@@ -1,0 +1,14 @@
+*run
+*opt
+*~
+*#*
+*.cmx
+*.cmi
+*.cmo
+*.o
+*.annot
+*.omc
+*.omakedb*
+.gitignore
+openrtb.ml*
+validate

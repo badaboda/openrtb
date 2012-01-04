@@ -1,0 +1,247 @@
+type request = {
+  id : string;
+  imp : impression list;
+  ?site : site option;
+  ?device : device option;
+  ?user : user option;
+  ~at <ocaml default="\"2\""> : string;
+  ?tmax : int option;
+  ~wseat <ocaml default="[]">: string list;
+  ~allimps <ocaml default="0">: int;
+  ~cur <ocaml default="[]">: string list;
+  ~bcat <ocaml default="[]">: string list;
+  ~badv <ocaml default="[]">: string list;
+  ?ext : string option;
+} <ocaml field_prefix="req_">
+
+type impression = {
+  id : string;
+  ?banner : banner option;
+  ?video : video option;
+  ?displaymanager : string option;
+  ?displaymanagerver : string option;
+  ~instl <ocaml default="0">: int;
+  ?tagid : string option;
+  ~bidfloor <ocaml default="0.0"> : float;
+  ~bidfloorcur <ocaml default="\"USD\""> : string;
+  ~iframebuster <ocaml default="[]"> : string list;
+  ?ext : string option;
+} <ocaml field_prefix="i_">
+
+type banner = {
+  ?w : int option;
+  ?h : int option;
+  ?id : string option;
+  ?pos: int option;
+  ~btype <ocaml default="[]"> : int list;
+  ~battr <ocaml default="[]"> : int list;
+  ~mimes <ocaml default="[]"> : int list;
+  ~topframe <ocaml default="0"> : int;
+  ~expdir <ocaml default="[]"> : int list;
+  ~api <ocaml default="[]"> : int list;
+} <ocaml field_prefix="ba_">
+
+type video = {
+  mimes : string list;
+  linearity : int;
+  minduration : int;
+  maxduration : int;
+  protocol : int list;
+  ?w : int option;
+  ?h : int option;
+  ?startdelay : int option;
+  ~sequence <ocaml default="1"> : int;
+  ~battr <ocaml default="[]"> : int list;
+  ~maxextended <ocaml default="0"> : int;
+  ?minbitrate : int option;
+  ?maxbitrate : int option;
+  ~boxingallowed <ocaml default="true"> : bool;
+  ~playbackmethod <ocaml default="[]"> : int list;
+  ~delivery <ocaml default="[]"> : int list;
+  ?pos : int option;
+  ~companionad <ocaml default="[]">: banner list;
+  ~api <ocaml default="[]">: int list;
+} <ocaml field_prefix="v_">
+
+type site = {
+  ?id : string option;
+  ?name : string option;
+  ?domain : string option;
+  ~cat <ocaml default="[]"> : string list; 
+  ~sectioncat <ocaml default="[]"> : string list;
+  ~pagecat <ocaml default="[]"> : string list;
+  ?page : string option;
+  ?privacypolicy : bool option;
+  ?ref : string option;
+  ?search : string option;
+  ?publisher : publisher option;
+  ?content : content option;
+  ~keywords <ocaml default="[]">: string list;
+} <ocaml field_prefix="si_">
+
+type app = {
+  ?id : string option;
+  ?name : string option;
+  ?domain : string option;
+  ~cat <ocaml default="[]"> : string list; 
+  ~sectioncat <ocaml default="[]"> : string list;
+  ~pagecat <ocaml default="[]"> : string list;
+  ?ver : string option;
+  ?bundle : string option;
+  ?privacypolicy : bool option;
+  ?paid : int option;
+  ?publisher : publisher option;
+  ?content : content option;
+} <ocaml field_prefix="a_">
+
+type content = {
+  ?id : string option;
+  ?episode : int option;
+  ?title : string option;
+  ?series : string option;
+  ?season : string option;
+  ?url : string option;
+  ~cat <ocaml default="[]"> : string list;
+  ?videoquality : int option;
+  ~keywords <ocaml defalt="[]">: string list;
+  ?contentrating : string option;
+  ?userrating : string option;
+  ?context : string option;
+  ?livestream : int option;
+  ?sourcerelationship : int option;
+  ?producer : producer option;
+  ?len : int option;
+} <ocaml field_prefix="c_">
+
+type publisher = {
+  ?id : string option;
+  ?name : string option;
+  ?cat : string option;
+  ?domain : string option;
+} <ocaml field_prefix="p_">
+
+type producer = publisher
+
+type device = {
+  ?dnt : int option;
+  ?ua : string option;
+  ?ip : string option;
+  ?geo : geo option;
+  ?didsha1 : string option;
+  ?didmd5 : string option;
+  ?dpidsha1 : string option;
+  ?dpidmd5 : string option;
+  ?ipv6 : string option;
+  ?carrier : string option;
+  ?language : string option;
+  ?make : string option;
+  ?model : string option;
+  ?os : string option;
+  ?osv : string option;
+  ?js : int option;
+  ?connectiontype : int option;
+  ?devicetype : int option;
+  ?flashver : string option;
+} <ocaml field_prefix="de_">
+
+type geo = {
+  ?lat : float option;
+  ?long : float option;
+  ?country : string option;
+  ?region : string option;
+  ?regionfips104 : string option;
+  ?metro : string option;
+  ?city : string option;
+  ?zip : string option;
+
+  ?tipe <json name="type">: string option; 
+  (* using tipe instead of type becase type is an atd reserved keyword *)
+
+} <ocaml field_prefix="g_">
+
+type user = {
+  ?id : string option;
+  ?buyeruid : string option;
+  ?yob : string option;
+  ?gender : string option;
+  ~keywords <ocaml default="[]">: string list;
+  ?customdata : string option;
+  ?geo : geo option;
+  ~data <ocaml default="[]">: data list;
+} <ocaml field_prefix="u_">
+
+type data = {
+  ?id : string option;
+  ?name : string option;
+  ~segment <ocaml default="[]">: segment list;
+} <ocaml field_prefix="da_">
+
+type segment = {
+  ?id : string option;
+  ?name : string option;
+  ?value : string option;
+} <ocaml field_prefix="se_">
+
+type response = {
+  id : string;
+  seatbid : seatbid list;
+  ?bidid : string option;
+  ?cur : string option;
+  ?customdata : string option;
+  ?ext : string option;
+} <ocaml field_prefix="res_">
+
+type seatbid = {
+  bid : bid list;
+  ?seat : string option;
+  ~group <ocaml default="0">: int;
+} <ocaml field_prefix="sb_">
+
+type bid = {
+  id : string ;
+  impid : string;
+  price : float;
+  ?adid : string option;
+  ?nurl : string option;
+  ?adm : string option;
+  ~adomain <ocaml default="[]">: string list;
+  ?iurl : string option;
+  ?cid : string option;
+  ?crid : string option;
+  ~attr <ocaml default="[]">: int list;
+  ?ext : string option;
+  
+} <ocaml field_prefix="bi_">
+
+(*
+Copyright (c) 2012, EigenDog, Inc.  All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+      
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the
+   distribution.
+
+3. Neither the name of EigenDog nor the names of contributors may be used
+   to endorse or promote products derived from this software without
+   specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+*)
